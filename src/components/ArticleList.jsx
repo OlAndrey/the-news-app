@@ -4,22 +4,22 @@ import React from 'react'
 const ArticleList = ({ articlesDate, isLatestNews }) => {
   const ArticleTitle = ({ date, title }) => {
     return (
-      <React.Fragment>
+      <>
         <p className="tex-red-500">{new Date(date).toLocaleDateString()}</p>
         <h3 className="text-2xl tex-red-700 text-ellipsis line-clamp-3">
           {title}
         </h3>
-      </React.Fragment>
+      </>
     )
   }
 
   if (!articlesDate.length) return <div>News not found!</div>
 
   return (
-    <div className="flex flex-wrap mx-auto">
-      <div className="w-full p-2 rounded md:w-1/2">
+    <div className={"flex flex-wrap mx-auto"}>
+      <div className="w-full p-2 border-b-2 border-gray-500 md:border-0 md:rounded md:w-1/2">
         <div className="w-full h-full relative">
-          {articlesDate[0].image && (
+          {articlesDate[0].image ? (
             <Image
               width={500}
               height={150}
@@ -29,6 +29,8 @@ const ArticleList = ({ articlesDate, isLatestNews }) => {
               blurDataURL="https://res.cloudinary.com/dtpqmlah5/image/upload/v1683104604/white-blurred-background_1034-249_envdir.avif"
               placeholder="blur"
             />
+          ) : (
+            <div className="h-40 max-h-80 w-full object-cover shadow-md md:hidden" />
           )}
 
           <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
@@ -45,11 +47,12 @@ const ArticleList = ({ articlesDate, isLatestNews }) => {
           </div>
         </div>
       </div>
+
       <div className="flex flex-col w-full rounded md:w-1/2">
         {articlesDate.slice(1, 3).map((articleDate) => (
           <div
-            key={articleDate.id || articleDate.published_at}
-            className="w-full p-2 flex flex-wrap rounded"
+            key={articleDate.id || articleDate.published_at + Math.random()}
+            className="w-full p-2 flex flex-wrap border-b-2 border-gray-500 md:border-0 md:rounded"
           >
             <div className="hidden md:block md:w-1/2 relative ">
               {articleDate.image && (
@@ -70,7 +73,15 @@ const ArticleList = ({ articlesDate, isLatestNews }) => {
                 </div>
               )}
             </div>
-            <div className="pl-2 md:w-1/2">
+            <div className="block md:hidden relative">
+              <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
+              {isLatestNews && (
+                <div className="absolute border-t-4 border-orange-400 md:text-white top-4 translate-x-6 -translate-y-4">
+                  {articleDate.category}
+                </div>
+              )}
+            </div>
+            <div className="pt-16 md:pt-0 pl-2 md:w-1/2">
               <ArticleTitle
                 date={articleDate.published_at}
                 title={articleDate.title}
@@ -82,10 +93,10 @@ const ArticleList = ({ articlesDate, isLatestNews }) => {
 
       {articlesDate.slice(3, 6).map((articleDate) => (
         <div
-          key={articleDate.id || articleDate.published_at}
-          className="w-full p-2 rounded md:w-1/3"
+          key={articleDate.id || articleDate.published_at + Math.random()}
+          className="w-full p-2 pt-16 md:pt-2 border-b-2 border-gray-500 md:border-0 md:rounded md:w-1/3 relative"
         >
-          <div className="w-full h-32 relative">
+          <div className="hidden md:block w-full h-32 relative">
             {articleDate.image && (
               <Image
                 width={250}
@@ -99,7 +110,15 @@ const ArticleList = ({ articlesDate, isLatestNews }) => {
             )}
             <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
             {isLatestNews && (
-              <div className="absolute border-t-4 border-orange-400 text-white top-4 translate-x-6 -translate-y-4">
+              <div className="absolute border-t-4 border-orange-400 md:text-white top-4 translate-x-6 -translate-y-4">
+                {articleDate.category}
+              </div>
+            )}
+          </div>
+          <div className="block md:hidden relative -top-12">
+            <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
+            {isLatestNews && (
+              <div className="absolute border-t-4 border-orange-400 md:text-white top-4 translate-x-6 -translate-y-4">
                 {articleDate.category}
               </div>
             )}

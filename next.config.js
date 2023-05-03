@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com', 'i.dailymail.co.uk', 'static.independent.co.uk']
+    domains: ['res.cloudinary.com', 'i.dailymail.co.uk', 'static.independent.co.uk', 'i.guim.co.uk']
   }
 }
 
