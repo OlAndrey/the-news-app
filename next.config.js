@@ -1,11 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    appDir: true
-  },
   images: {
-    domains: ['res.cloudinary.com']
+    domains: ['res.cloudinary.com', 'i.dailymail.co.uk', 'static.independent.co.uk']
   }
 }
 
