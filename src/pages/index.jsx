@@ -18,9 +18,7 @@ const Homepage = ({ dataNews }) => {
   if (!dataNews.length) return <div>Latest news not found!</div>
 
   return (
-    <div className="container">
       <ArticleList articlesDate={dataNews} isLatestNews={true} isReverse={false} />
-    </div>
   )
 }
 

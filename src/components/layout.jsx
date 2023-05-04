@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
        dark:bg-zinc-900 transition-all-duration-700"
       >
         <Header />
-        <div className="flex-auto flex-shrink-0 max-w-6xl mx-auto">
+        <div className="flex-auto flex-shrink-0">
           {children}
         </div>
         <Footer />
