@@ -1,7 +1,14 @@
 import Image from 'next/image'
 import React from 'react'
+import ArticleItemSide from './ArticleItemSide'
+import ArticleItemCenter from './ArticleItemCentr'
 
-const ArticleList = ({ articlesDate, isLatestNews }) => {
+const ArticleList = ({
+  isReverse,
+  isLatestNews,
+  Name = 'Latest',
+  articlesDate
+}) => {
   const ArticleTitle = ({ date, title }) => {
     return (
       <>
@@ -13,123 +20,53 @@ const ArticleList = ({ articlesDate, isLatestNews }) => {
     )
   }
 
-  if (!articlesDate.length) return <div>News not found!</div>
+  if (!articlesDate.length) return <div>{Name} news not found!</div>
 
   return (
-    <div className={"flex flex-wrap mx-auto"}>
-      <div className="w-full p-2 border-b-2 border-gray-500 md:border-0 md:rounded md:w-1/2">
-        <div className="w-full h-full relative">
-          {articlesDate[0].image ? (
-            <Image
-              width={500}
-              height={150}
-              src={articlesDate[0].image}
-              alt={articlesDate[0].title || 'Picture of the author'}
-              className="min-h-full max-h-80 w-full object-cover shadow-md"
-              blurDataURL="https://res.cloudinary.com/dtpqmlah5/image/upload/v1683104604/white-blurred-background_1034-249_envdir.avif"
-              placeholder="blur"
-            />
-          ) : (
-            <div className="h-40 max-h-80 w-full object-cover shadow-md md:hidden" />
-          )}
+      <div
+        className={
+          'flex flex-wrap mx-auto' + (isReverse ? ' flex-row-reverse' : '')
+        }
+      >
+        <ArticleItemCenter
+          article={articlesDate[0]}
+          isLatestNews={isLatestNews}
+        >
+          <ArticleTitle
+            date={articlesDate[0].published_at}
+            title={articlesDate[0].title}
+          />
+        </ArticleItemCenter>
 
-          <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
-          {isLatestNews && (
-            <div className="absolute border-t-4 border-orange-400 text-white top-4 translate-x-6 -translate-y-4">
-              {articlesDate[0].category}
-            </div>
-          )}
-          <div className="absolute text-white bottom-0.5 left-1/4 -translate-x-1/4 -translate-y-4">
-            <ArticleTitle
-              date={articlesDate[0].published_at}
-              title={articlesDate[0].title}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col w-full rounded md:w-1/2">
-        {articlesDate.slice(1, 3).map((articleDate) => (
-          <div
-            key={articleDate.id || articleDate.published_at + Math.random()}
-            className="w-full p-2 flex flex-wrap border-b-2 border-gray-500 md:border-0 md:rounded"
-          >
-            <div className="hidden md:block md:w-1/2 relative ">
-              {articleDate.image && (
-                <Image
-                  width={250}
-                  height={75}
-                  src={articleDate.image}
-                  alt={articleDate.title || 'Picture of the author'}
-                  className="w-full h-32 object-cover shadow-md"
-                  blurDataURL="https://res.cloudinary.com/dtpqmlah5/image/upload/v1683104604/white-blurred-background_1034-249_envdir.avif"
-                  placeholder="blur"
-                />
-              )}
-              <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
-              {isLatestNews && (
-                <div className="absolute border-t-4 border-orange-400 text-white top-4 translate-x-6 -translate-y-4">
-                  {articleDate.category}
-                </div>
-              )}
-            </div>
-            <div className="block md:hidden relative">
-              <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
-              {isLatestNews && (
-                <div className="absolute border-t-4 border-orange-400 md:text-white top-4 translate-x-6 -translate-y-4">
-                  {articleDate.category}
-                </div>
-              )}
-            </div>
-            <div className="pt-16 md:pt-0 pl-2 md:w-1/2">
+        <div className="flex flex-col-reverse  w-full rounded md:w-1/2">
+          {articlesDate.slice(1, 3).map((articleDate) => (
+            <ArticleItemSide
+              key={articleDate.id || articleDate.published_at + Math.random()}
+              article={articleDate}
+              isLatestNews={isLatestNews}
+            >
               <ArticleTitle
                 date={articleDate.published_at}
                 title={articleDate.title}
               />
-            </div>
-          </div>
+            </ArticleItemSide>
+          ))}
+        </div>
+
+        {articlesDate.slice(3, 6).map((articleDate) => (
+          <ArticleItemSide
+            key={articleDate.id || articleDate.published_at + Math.random()}
+            article={articleDate}
+            isBottom={true}
+            isLatestNews={isLatestNews}
+          >
+            <ArticleTitle
+              date={articleDate.published_at}
+              title={articleDate.title}
+            />
+          </ArticleItemSide>
         ))}
       </div>
-
-      {articlesDate.slice(3, 6).map((articleDate) => (
-        <div
-          key={articleDate.id || articleDate.published_at + Math.random()}
-          className="w-full p-2 pt-16 md:pt-2 border-b-2 border-gray-500 md:border-0 md:rounded md:w-1/3 relative"
-        >
-          <div className="hidden md:block w-full h-32 relative">
-            {articleDate.image && (
-              <Image
-                width={250}
-                height={75}
-                src={articleDate.image}
-                alt={articleDate.title || 'Picture of the author'}
-                className="w-full h-32 object-cover shadow-md"
-                blurDataURL="https://res.cloudinary.com/dtpqmlah5/image/upload/v1683104604/white-blurred-background_1034-249_envdir.avif"
-                placeholder="blur"
-              />
-            )}
-            <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
-            {isLatestNews && (
-              <div className="absolute border-t-4 border-orange-400 md:text-white top-4 translate-x-6 -translate-y-4">
-                {articleDate.category}
-              </div>
-            )}
-          </div>
-          <div className="block md:hidden relative -top-12">
-            <div className="bg-black/30 w-full h-full absolute top-0 left-0" />
-            {isLatestNews && (
-              <div className="absolute border-t-4 border-orange-400 md:text-white top-4 translate-x-6 -translate-y-4">
-                {articleDate.category}
-              </div>
-            )}
-          </div>
-          <ArticleTitle
-            date={articleDate.published_at}
-            title={articleDate.title}
-          />
-        </div>
-      ))}
-    </div>
   )
 }
 

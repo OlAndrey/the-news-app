@@ -19,7 +19,7 @@ const Homepage = ({ dataNews }) => {
 
   return (
     <div className="container">
-      <ArticleList articlesDate={dataNews} isLatestNews={true} />
+      <ArticleList articlesDate={dataNews} isLatestNews={true} isReverse={false} />
     </div>
   )
 }
