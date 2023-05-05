@@ -1,6 +1,7 @@
 import React from 'react'
 import ArticleItemSide from './ArticleItemSide'
 import ArticleItemCenter from './ArticleItemCentr'
+import Link from 'next/link'
 
 const ArticleList = ({
   isReverse,
@@ -19,7 +20,8 @@ const ArticleList = ({
     )
   }
 
-  if (!articlesDate.length) return <div>{name.toUpperCase()} news not found!</div>
+  if (!articlesDate.length)
+    return <div>{name.toUpperCase()} news not found!</div>
 
   return (
     <div className={isReverse ? 'bg-gray-200 py-4' : 'bg-gray-100 py-4'}>
@@ -27,7 +29,7 @@ const ArticleList = ({
         {name !== 'latest' && (
           <div className="w-full flex justify-between py-2 mb-2 px-8 border-b-2 border-gray-500">
             <div className="relative top-3.5 px-2 pb-2 border-b-4 text-2xl font-medium text-orange-400 border-orange-400 ">
-              {name.toUpperCase()}
+              <Link href={`/news/${name}`}>{name.toUpperCase()}</Link>
             </div>
             <div className="relative top-3 h-8 flex flex-row">
               <button
