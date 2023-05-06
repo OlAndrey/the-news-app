@@ -1,20 +1,8 @@
 import React from 'react'
-import ArticleItemSide from './ArticleItemSide'
-import ArticleItemCenter from './ArticleItemCentr'
+import ArticleItemContainer from './ArticleItemContainer'
 
 const NewsList = ({ name = 'latest', articlesDate }) => {
   const data = []
-
-  const ArticleTitle = ({ date, title }) => {
-    return (
-      <>
-        <p className="tex-red-500">{new Date(date).toLocaleDateString()}</p>
-        <h3 className="text-2xl tex-red-700 text-ellipsis line-clamp-3">
-          {title}
-        </h3>
-      </>
-    )
-  }
 
   if (!articlesDate.length)
     return <div>{name.toUpperCase()} news not found!</div>
@@ -32,56 +20,17 @@ const NewsList = ({ name = 'latest', articlesDate }) => {
           </div>
         </div>
       )}
-      {data.map((articlesDate, index) => (
+      {data.map((articleDate, index) => (
         <div
           key={'3456789098765' + index}
           className={index % 2 !== 0 ? 'bg-gray-200 py-4' : 'bg-gray-100 py-4'}
         >
           <div className="container mx-auto">
-            <div
-              className={
-                'flex flex-wrap mx-auto' +
-                (index % 2 !== 0 ? ' flex-row-reverse' : '')
-              }
-            >
-              <ArticleItemCenter article={articlesDate[0]}>
-                <ArticleTitle
-                  date={articlesDate[0].published_at}
-                  title={articlesDate[0].title}
-                />
-              </ArticleItemCenter>
-
-              <div className="flex flex-col-reverse  w-full rounded md:w-1/2">
-                {articlesDate.slice(1, 3).map((articleDate) => (
-                  <ArticleItemSide
-                    key={
-                      articleDate.id || articleDate.published_at + Math.random()
-                    }
-                    article={articleDate}
-                  >
-                    <ArticleTitle
-                      date={articleDate.published_at}
-                      title={articleDate.title}
-                    />
-                  </ArticleItemSide>
-                ))}
-              </div>
-
-              {articlesDate.slice(3, 6).map((articleDate) => (
-                <ArticleItemSide
-                  key={
-                    articleDate.id || articleDate.published_at + Math.random()
-                  }
-                  article={articleDate}
-                  isBottom={true}
-                >
-                  <ArticleTitle
-                    date={articleDate.published_at}
-                    title={articleDate.title}
-                  />
-                </ArticleItemSide>
-              ))}
-            </div>
+            <ArticleItemContainer
+              items={[articleDate]}
+              currentPage={0}
+              isReverse={index % 2 !== 0}
+            />
           </div>
         </div>
       ))}
