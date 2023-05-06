@@ -8,6 +8,10 @@ const ArticleListTest = ({
   name = 'latest',
   articlesDate
 }) => {
+  const data = []
+  const pageSize = 6
+  const [currentPage, setCurrentPage] = useState(0)
+  const pagesCount = Math.ceil(articlesDate.length / pageSize) - 1
 
   if (!articlesDate.length)
     return <div>{name.toUpperCase()} news not found!</div>
@@ -28,13 +32,17 @@ const ArticleListTest = ({
               <button
                 type="button"
                 className="rounded-l-md border-2 border-gray-500 hover:bg-gray-500 hover:text-white disabled:bg-gray-100 disabled:text-gray-500"
-                >
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage <= 0}
+              >
                 <p className="ml-1 px-1 text-xl font-black">&#10094;</p>
               </button>
               <button
                 type="button"
                 className="rounded-r-md border-2 border-gray-500 hover:bg-gray-500 hover:text-white disabled:bg-gray-100 disabled:text-gray-500"
-                >
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage >= pagesCount}
+              >
                 <span className="mr-1 px-1 text-xl font-black">&#10095;</span>
               </button>
             </div>
@@ -42,7 +50,7 @@ const ArticleListTest = ({
         )}
         <ArticleItemContainer
           items={data}
-          currentPage={0}
+          currentPage={currentPage}
           isLatestNews={isLatestNews}
           isReverse={isReverse}
         />
