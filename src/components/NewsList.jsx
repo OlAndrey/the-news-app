@@ -14,7 +14,7 @@ const NewsList = ({ name = 'latest', articlesDate }) => {
   return (
     <>
       {name !== 'latest' && (
-        <div className="w-full flex justify-between py-2 mb-2 px-8 border-b-2 border-gray-500">
+        <div className="container flex justify-between py-2 mb-2 mx-auto px-8 border-b-2 border-gray-500">
           <div className="relative top-3.5 px-2 pb-2 border-b-4 text-2xl font-medium text-orange-400 border-orange-400 ">
             {name.toUpperCase()}
           </div>

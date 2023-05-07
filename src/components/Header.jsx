@@ -1,29 +1,66 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import NavLinks from './NavLinks'
 
 function Header() {
+  const [nav, setNav] = useState(false)
+  const showNav = () => {
+    setNav(!nav)
+  }
   return (
     <header>
-      <div className="grid grid-cols-3 p-10 items-center">
+      <div className="container p-10 mx-auto flex justify-between items-center">
         <Link href="/" prefetch={false}>
-          <h1
-            className="font-serif 
-          text-4xl text-center"
-          >
+          <h1 className="font-serif text-4xl z-51">
             The{' '}
-            <span
-              className="underline 
-            decoration-6 decoration-orange-400"
-            >
+            <span className="underline decoration-6 decoration-orange-400">
               News
             </span>{' '}
             App
           </h1>
         </Link>
+
+        {nav ? (
+          <i
+            className="right-16 text-3xl z-50 md:hidden"
+            aria-hidden="true"
+            onClick={showNav}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path d="M 4.9902344 3.9902344 A 1.0001 1.0001 0 0 0 4.2929688 5.7070312 L 10.585938 12 L 4.2929688 18.292969 A 1.0001 1.0001 0 1 0 5.7070312 19.707031 L 12 13.414062 L 18.292969 19.707031 A 1.0001 1.0001 0 1 0 19.707031 18.292969 L 13.414062 12 L 19.707031 5.7070312 A 1.0001 1.0001 0 0 0 18.980469 3.9902344 A 1.0001 1.0001 0 0 0 18.292969 4.2929688 L 12 10.585938 L 5.7070312 4.2929688 A 1.0001 1.0001 0 0 0 4.9902344 3.9902344 z" />
+            </svg>
+          </i>
+        ) : (
+          <i
+            className=" text-3xl md:hidden"
+            aria-hidden="true"
+            onClick={showNav}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </i>
+        )}
       </div>
 
-      <NavLinks />
+      <NavLinks nav={nav} showNav={showNav} />
     </header>
   )
 }

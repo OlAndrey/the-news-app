@@ -1,39 +1,56 @@
-"use client";
+'use client'
 
-import { usePathname } from "next/navigation";
-import NavLink from "./NavLink";
+import { useState } from 'react'
+import NavLink from './NavLink'
+import { usePathname } from 'next/navigation'
 
 const categories = [
-    "general",
-    "business",
-    "entertainment",
-    "health",
-    "science",
-    "sports",
-    "technology",
+  'general',
+  'business',
+  'entertainment',
+  'health',
+  'science',
+  'sports',
+  'technology'
 ]
 
-function NavLinks() {
-  const pathname = usePathname();
+function NavLinks({nav, showNav}) {
+  const pathname = usePathname()
 
   const isActive = (path) => {
-    return pathname?.split("/").pop() === path;
-  };
+    return pathname?.split('/').pop() === path
+  }
+
 
   return (
-    <nav
-      className="grid grid-cols-4 md:grid-cols-7 
-    text-cs md:text-sm gap-4 pb-10 max-w-6xl mx-auto border-b"
-    >
-      {categories.map((category) => (
+    <>
+        <nav className="container mx-auto hidden md:flex gap-5 justify-between  ">
+        {categories.map((category) => (
         <NavLink
           key={category}
           category={category}
           isActive={isActive(category)}
         />
       ))}
-    </nav>
-  );
+        </nav>
+
+        {/* mobile nav */}
+        <nav
+          className={
+            `h-[100vh] fixed bottom-0 flex flex-col pt-24 justify-around items-center w-36 md:hidden bg-white z-40 duration-1000 
+            ${nav ? "right-[0px]" : "right-[-100vw]"} `
+          }
+        >
+          {categories.map((category) => (
+        <NavLink
+          key={category}
+          category={category}
+          isActive={isActive(category)}
+        />
+      ))}
+        </nav>
+      </>
+  )
 }
 
-export default NavLinks;
+export default NavLinks
