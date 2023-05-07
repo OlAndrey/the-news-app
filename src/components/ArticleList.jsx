@@ -24,14 +24,23 @@ const ArticleListTest = ({
     <div className={isReverse ? 'bg-gray-200 py-4' : 'bg-gray-100 py-4'}>
       <div className="container mx-auto">
         {name !== 'latest' && (
-          <div className="w-full flex justify-between py-2 mb-2 px-8 border-b-2 border-gray-500">
-            <div className="relative top-3.5 px-2 pb-2 border-b-4 text-2xl font-medium text-orange-400 border-orange-400 ">
+          <div 
+            className="w-full flex justify-between
+              py-2 mb-2 px-8 border-b-2 border-gray-500"
+          >
+            <div 
+              className="w-2/3 md:w-full overflow-hidden 
+                relative top-3.5 px-2 pb-2 border-b-4 
+                text-2xl font-medium text-orange-400 border-orange-400 "
+            >
               <Link href={`/news/${name}`}>{name.toUpperCase()}</Link>
             </div>
             <div className="relative top-3 h-8 flex flex-row">
               <button
                 type="button"
-                className="rounded-l-md border-2 border-gray-500 hover:bg-gray-500 hover:text-white disabled:bg-gray-100 disabled:text-gray-500"
+                className="rounded-l-md border-2 border-gray-500 
+                  hover:bg-gray-500 hover:text-white 
+                  disabled:bg-gray-100 disabled:text-gray-500"
                 onClick={() => setCurrentPage(currentPage - 1)}
                 disabled={currentPage <= 0}
               >
@@ -39,7 +48,9 @@ const ArticleListTest = ({
               </button>
               <button
                 type="button"
-                className="rounded-r-md border-2 border-gray-500 hover:bg-gray-500 hover:text-white disabled:bg-gray-100 disabled:text-gray-500"
+                className="rounded-r-md border-2 border-gray-500 
+                  hover:bg-gray-500 hover:text-white 
+                  disabled:bg-gray-100 disabled:text-gray-500"
                 onClick={() => setCurrentPage(currentPage + 1)}
                 disabled={currentPage >= pagesCount}
               >
