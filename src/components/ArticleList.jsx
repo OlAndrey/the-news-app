@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
+import PropTypes, { object } from 'prop-types';
 import ArticleItemContainer from './ArticleItemContainer'
 
-const ArticleListTest = ({
+const ArticleList = ({
   isReverse,
   isLatestNews,
   name = 'latest',
@@ -70,4 +71,11 @@ const ArticleListTest = ({
   )
 }
 
-export default ArticleListTest
+ArticleList.propTypes = {
+  isReverse: PropTypes.bool,
+  isLatestNews: PropTypes.bool,
+  name: PropTypes.string,
+  articlesDate: PropTypes.arrayOf(object).isRequired
+}
+
+export default ArticleList

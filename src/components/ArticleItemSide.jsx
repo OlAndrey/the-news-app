@@ -1,25 +1,34 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation';
+import classNames from 'classnames/bind'
+import { useRouter } from 'next/navigation'
+import PropTypes from 'prop-types'
 
 const ArticleItemSide = ({ isBottom, isLatestNews, article, children }) => {
-  const router = useRouter();
+  const router = useRouter()
   const queryString = Object.entries(article)
     .map(([key, value]) => `${key}=${value}`)
-    .join("&");
-  const url = `/article/article?${queryString}`;
+    .join('&')
+  const url = `/article/article?${queryString}`
 
   return (
-    <div className={
-        "flex w-full p-2 border-b-2 border-gray-500 md:border-0 md:rounded cursor-pointer " 
-        + (isBottom ? ' md:block md:w-1/3': ' ')
-      }
+    <div
+      className={classNames(
+        'flex w-full p-2 border-b-2 border-gray-500',
+        'md:border-0 md:rounded cursor-pointer',
+        {
+          'md:block md:w-1/3': isBottom
+        }
+      )}
     >
-      <div className={
-        "relative " + (article.image ? ' w-1/3' :' h-0') 
-        + (isBottom ? ' h-32 md:w-full md:h-32': ' h-40 md:w-1/2 md:h-40')
-      }>
+      <div
+        className={
+          'relative ' +
+          (article.image ? ' w-1/3' : ' h-0') +
+          (isBottom ? ' h-32 md:w-full md:h-32' : ' h-40 md:w-1/2 md:h-40')
+        }
+      >
         {article.image && (
           <Image
             width={500}
@@ -31,33 +40,45 @@ const ArticleItemSide = ({ isBottom, isLatestNews, article, children }) => {
             placeholder="blur"
           />
         )}
-        <div 
+        <div
           onClick={() => router.push(url)}
-          className={
-            "bg-black/30 w-full h-full absolute top-0 left-0 cursor-pointer " 
-            + (article.image ? '' :'hidden md:block')
-          } 
+          className={classNames(
+            'bg-black/30 w-full h-full absolute top-0 left-0 cursor-pointer',
+            { 'hidden md:block': !article.image }
+          )}
         />
         {isLatestNews && (
           <Link
             href={`/news/${article.category.toLowerCase()}`}
-            className="absolute border-t-4 border-orange-400 
-            text-white top-4 translate-x-6 -translate-y-4 
-            transition-all hover:text-lg"
+            className={classNames(
+              'absolute border-t-4 border-orange-400',
+              'text-white top-4 translate-x-6 -translate-y-4',
+              'transition-all hover:text-lg'
+            )}
           >
             {article.category}
           </Link>
         )}
       </div>
       <div
-        onClick={() => router.push(url)} 
+        onClick={() => router.push(url)}
         className={
-          " md:pt-0 pl-2 cursor-pointer " + (article.image ? ' w-2/3' :' pt-16')  
-          + (isBottom ? ' md:w-full': ' md:w-1/2')
+          ' md:pt-0 pl-2 cursor-pointer ' +
+          (article.image ? ' w-2/3' : ' pt-16') +
+          (isBottom ? ' md:w-full' : ' md:w-1/2')
         }
-      >{children}</div>
+      >
+        {children}
+      </div>
     </div>
   )
+}
+
+ArticleItemSide.propTypes = {
+  isBottom: PropTypes.bool,
+  isLatestNews: PropTypes.bool,
+  article: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired
 }
 
 export default ArticleItemSide

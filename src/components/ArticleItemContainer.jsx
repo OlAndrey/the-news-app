@@ -1,7 +1,13 @@
 import ArticleItemCenter from './ArticleItemCentr'
 import ArticleItemSide from './ArticleItemSide'
+import PropTypes, { arrayOf, object } from 'prop-types';
 
-const ArticleItemContainer = ({isLatestNews, isReverse, currentPage, items}) => {
+const ArticleItemContainer = ({
+  isLatestNews,
+  isReverse,
+  currentPage,
+  items
+}) => {
   const articlesDate = items[currentPage]
 
   const ArticleTitle = ({ date, title }) => {
@@ -60,4 +66,10 @@ const ArticleItemContainer = ({isLatestNews, isReverse, currentPage, items}) => 
   )
 }
 
+ArticleItemContainer.propTypes = {
+  isLatestNews: PropTypes.bool,
+  isReverse: PropTypes.bool,
+  currentPage: PropTypes.number.isRequired,
+  items: PropTypes.arrayOf(arrayOf(object)).isRequired
+}
 export default ArticleItemContainer

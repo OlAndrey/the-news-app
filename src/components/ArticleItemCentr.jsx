@@ -1,17 +1,18 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
+import PropTypes from 'prop-types'
 
 const ArticleItemCenter = ({ article, isLatestNews, children }) => {
-  const router = useRouter();
+  const router = useRouter()
   const queryString = Object.entries(article)
     .map(([key, value]) => `${key}=${value}`)
-    .join("&");
-  const url = `/article/article?${queryString}`;
+    .join('&')
+  const url = `/article/article?${queryString}`
 
   return (
-    <div 
+    <div
       className="w-full p-2 border-b-2 border-gray-500
         md:border-0 md:rounded md:w-1/2"
     >
@@ -31,9 +32,9 @@ const ArticleItemCenter = ({ article, isLatestNews, children }) => {
         )}
 
         <div
-          onClick={() => router.push(url)} 
+          onClick={() => router.push(url)}
           className="bg-black/30 w-full h-full 
-            absolute top-0 left-0 cursor-pointer" 
+            absolute top-0 left-0 cursor-pointer"
         />
         {isLatestNews && (
           <Link
@@ -46,7 +47,7 @@ const ArticleItemCenter = ({ article, isLatestNews, children }) => {
           </Link>
         )}
         <div
-          onClick={() => router.push(url)} 
+          onClick={() => router.push(url)}
           className="absolute text-white bottom-0.5 left-1/4 
             -translate-x-1/4 -translate-y-4 cursor-pointer"
         >
@@ -55,6 +56,12 @@ const ArticleItemCenter = ({ article, isLatestNews, children }) => {
       </div>
     </div>
   )
+}
+
+ArticleItemCenter.propTypes = {
+  article: PropTypes.object.isRequired,
+  isLatestNews: PropTypes.bool,
+  children: PropTypes.element.isRequired
 }
 
 export default ArticleItemCenter

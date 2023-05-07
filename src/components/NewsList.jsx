@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes, { object } from 'prop-types'
 import ArticleItemContainer from './ArticleItemContainer'
 
 const NewsList = ({ name = 'latest', articlesDate }) => {
@@ -36,6 +37,11 @@ const NewsList = ({ name = 'latest', articlesDate }) => {
       ))}
     </>
   )
+}
+
+NewsList.propTypes = {
+  name: PropTypes.string,
+  articlesDate: PropTypes.arrayOf(object)
 }
 
 export default NewsList
