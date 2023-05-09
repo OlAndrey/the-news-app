@@ -5,7 +5,7 @@ import NewsList from '@/components/NewsList'
 export async function getServerSideProps(context) {
   const { term } = context.query
   try {
-    const res = await axios.get(`${process.env.FETCH_URL}search=${term}&limit=24`)
+    const res = await axios.get(`${process.env.FETCH_URL}keywords=${term}&limit=24`)
     const resData = await res.data?.data
 
     return { props: { dataNews: resData, term } }

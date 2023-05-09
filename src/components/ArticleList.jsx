@@ -30,7 +30,7 @@ const ArticleList = ({
               py-2 mb-2 px-8 border-b-2 border-gray-500"
           >
             <div 
-              className="w-2/3 md:w-full overflow-hidden 
+              className="max-w-sm overflow-hidden 
                 relative top-3.5 px-2 pb-2 border-b-4 
                 text-2xl font-medium text-orange-400 border-orange-400 "
             >
