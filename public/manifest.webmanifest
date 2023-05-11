@@ -2,7 +2,7 @@
     "name": "The-news-app",
     "short_name": "AofN",
     "theme_color": "#e5e7eb",
-    "background_color": "#262f37",
+    "background_color": "#e5e7eb",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
